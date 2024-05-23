@@ -64,6 +64,41 @@ public class Program {
         } catch (Exception e) {
             System.out.println("Неизвестная ошибка: " + e.getMessage());
         }
+
+
+        System.out.println("Задание №2");
+
+        /**
+         * Создаем кредитный и дебетовый счет */
+        try {
+            CreditAcciunt creditAccount = new CreditAcciunt(500);
+            DebitAccount debitAccount = new DebitAccount(200);
+            System.out.println("Баланс кредитного счета: " + creditAccount.getBalance());
+            System.out.println("Баланс дебетового счета: " + debitAccount.getBalance());
+
+            try {
+                Transaction.transfer(creditAccount, debitAccount, 100);
+                System.out.println("Баланс кредитного счета после перевода: " + creditAccount.getBalance());
+                System.out.println("Баланс дебетового счета после перевода: " + debitAccount.getBalance());
+            } catch (InsufficientFundsException e) {
+                System.out.println("Ошибка транзакции: " + e.getMessage());
+            }
+
+
+            /**
+             * обработка исключений
+             * */
+            try {
+                Transaction.transfer(debitAccount, creditAccount, 1000);
+            } catch (InsufficientFundsException e) {
+                System.out.println("Ошибка транзакции: " + e.getMessage());
+            }
+        } catch (Exception e) {
+            System.out.println("Неизвестная ошибка: " + e.getMessage());
+        }
     }
 
+
 }
+
+
